@@ -2,6 +2,8 @@ export default class Timeline {
   constructor (events) {
     this.events = this.initializeEvents(events)
     this.board = []
+    this.rounds = 0
+    this.fails = 0
   }
 
   initializeEvents (events) {
@@ -21,11 +23,12 @@ export default class Timeline {
   }
 
   play (event, targetIndex = 0) {
+    this.rounds++
     if (this.eventCanBePutThere(event, targetIndex)) {
       this.events[event.id].onBoard = true
       this.board.splice(targetIndex, 0, event)
     } else {
-      // todo
+      this.fails++
     }
   }
 

@@ -65,6 +65,14 @@ describe('TimelineGame', () => {
           ])
         )
       })
+
+      test('must increment rounds', () => {
+        expect(game.rounds).toEqual(1)
+      })
+
+      test('must not increment fails', () => {
+        expect(game.fails).toEqual(0)
+      })
     })
 
     describe('with one event in board', () => {
@@ -96,6 +104,14 @@ describe('TimelineGame', () => {
             ])
           )
         })
+
+        test('must increment rounds', () => {
+          expect(game.rounds).toEqual(2)
+        })
+
+        test('must not increment fails', () => {
+          expect(game.fails).toEqual(0)
+        })
       })
 
       describe('when younger event is put before older event', () => {
@@ -121,6 +137,14 @@ describe('TimelineGame', () => {
               expect.objectContaining(events[1])
             ])
           )
+        })
+
+        test('must increment rounds', () => {
+          expect(game.rounds).toEqual(2)
+        })
+
+        test('must not increment fails', () => {
+          expect(game.fails).toEqual(0)
         })
       })
 
@@ -148,6 +172,14 @@ describe('TimelineGame', () => {
             ])
           )
         })
+
+        test('must increment rounds', () => {
+          expect(game.rounds).toEqual(2)
+        })
+
+        test('must increment fails', () => {
+          expect(game.fails).toEqual(1)
+        })
       })
 
       describe('when older event is put before younger event', () => {
@@ -173,6 +205,14 @@ describe('TimelineGame', () => {
               expect.objectContaining(events[3])
             ])
           )
+        })
+
+        test('must increment rounds', () => {
+          expect(game.rounds).toEqual(2)
+        })
+
+        test('must increment fails', () => {
+          expect(game.fails).toEqual(1)
         })
       })
     })
