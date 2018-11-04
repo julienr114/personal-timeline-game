@@ -16,4 +16,10 @@ export default {
 </script>
 
 <style lang="less">
+  body {
+    margin: 0px;
+    #app {
+      height: 100vh;
+    }
+  }
 </style>

@@ -26,7 +26,7 @@ export default class Timeline {
   }
 
   get topOfTheDesk () {
-    if (this.topOfTheDeskIndex === this.desk.length - 1) {
+    if (this.topOfTheDeskIndex > this.desk.length - 1) {
       this.topOfTheDeskIndex = 0
     }
     return this.desk[this.topOfTheDeskIndex]
