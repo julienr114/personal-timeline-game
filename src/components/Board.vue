@@ -7,17 +7,17 @@
       draggable(
         class="timeline",
         v-model="game.board",
-        :options="{ group: { name: 'timeline', pull: false, put: 'desk' }, sort: false }",
+        :options="{ group: { name: 'timeline', pull: false, put: 'desk' }, sort: false, fallbackOnBody: true }",
         @add="checkMove"
       )
         .event(v-for="(event, index) in game.board", :key="index") 
           card(:event="event")
     .desk__wrapper(v-if="game.desk.length > 0")
       .desk
-        button(@click="game.toPrevCardOfTheDeck()") prev
+        button(@click="game.toPrevCardOfTheDeck()") Image précedente
         draggable(v-model="topOfTheDesk", :options="{ group: { name: 'desk', pull: 'timeline', put: false } }")
           card(v-for="(event, index) in topOfTheDesk",  :event="event", :enabled-date="false")
-        button(@click="game.toNextCardOfTheDeck()") next
+        button(@click="game.toNextCardOfTheDeck()") Image suivante
 </template>
 
 <script>
@@ -60,7 +60,13 @@ export default {
 </script>
 
 <style lang="less">
+  @font-face {
+    font-family: "Playfair Display";
+    src: url("../assets/fonts/PlayfairDisplay-Regular.ttf") format("ttf");
+  }
+
   .board {
+    font-family: 'Playfair Display', serif;
     height: 100vh;
 
     button.interval.active {
@@ -95,17 +101,17 @@ export default {
         left: 10px;
         right: 10px;
         border-radius: 16px;
-        border: 3px dashed rgba(0, 0, 0, .1);
+        border: 3px dashed rgba(255, 255, 255, .4);
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 60px;
-        color:  rgba(0, 0, 0, .1);
+        color:  rgba(255, 255, 255, .4);
       }
       
       .timeline {
         padding-top: 10px;
-        height: 100%;
+        min-height: 60%;
         width: 100%;
         position: relative;
         align-items: flex-start;
@@ -123,6 +129,26 @@ export default {
     .desk__wrapper {
       height: 32%;
       justify-content: center;
+
+      .desk button {
+        margin: 0px 20px;
+        width: 100px;
+      }
+    }
+
+    button {
+      background: linear-gradient(#1245ee, #0f2188);
+      border: 1px solid #0f2188;
+      color: rgba(255, 255, 255, .7);
+      padding: 6px 8px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    button:hover {
+      cursor: pointer;
+      background: linear-gradient(tint(#1245ee, 10%), tint(#0f2188, 10%));
+      color: rgba(255, 255, 255, 8);
     }
   }
 </style>
