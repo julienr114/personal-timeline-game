@@ -1,25 +1,23 @@
 <template lang="pug">
   .board
     .timeline__wrapper
+      .timeline__area
+        span(v-if="game.board.length === 0") Déposes ta première carte ici 
       //- .timeline
-      //- button.interval(@click="game.selectedInterval = 0", :class="{ active: game.selectedInterval === 0 }") x
       draggable(
         class="timeline",
         v-model="game.board",
         :options="{ group: { name: 'timeline', pull: false, put: 'desk' }, sort: false }",
         @add="checkMove"
       )
-          .event(v-for="(event, index) in game.board") 
-            card(:event="event", :key="index")
-          //- button.interval(@click="game.selectedInterval = index + 1", :class="{ active: game.selectedInterval === index + 1 }") x
+        .event(v-for="(event, index) in game.board", :key="index") 
+          card(:event="event")
     .desk__wrapper(v-if="game.desk.length > 0")
       .desk
         button(@click="game.toPrevCardOfTheDeck()") prev
         draggable(v-model="topOfTheDesk", :options="{ group: { name: 'desk', pull: 'timeline', put: false } }")
           card(v-for="(event, index) in topOfTheDesk",  :event="event", :enabled-date="false")
         button(@click="game.toNextCardOfTheDeck()") next
-    //- .play__wrapper
-      button(v-if="game.selectedInterval !== null", @click="game.play()") Play
 </template>
 
 <script>
@@ -86,29 +84,45 @@ export default {
 
     .timeline__wrapper {
       height: 65%;
+      position: relative;
       background-color: rgba(0, 0, 0, .08);
-      border-bottom: 1px solid rgba(0, 0, 0, .1);
       justify-content: flex-start;
+
+      .timeline__area {
+        position: absolute;
+        top: 5px;
+        bottom: 5px;
+        left: 10px;
+        right: 10px;
+        border-radius: 16px;
+        border: 3px dashed rgba(0, 0, 0, .1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 60px;
+        color:  rgba(0, 0, 0, .1);
+      }
       
       .timeline {
-        flex-wrap: wrap;
-        min-height: 236px;
+        padding-top: 10px;
+        height: 100%;
         width: 100%;
         position: relative;
+        align-items: flex-start;
+        flex-wrap: wrap;
         .event {
-          flex-basis: 16%;
+          flex-basis: 13%;
+          margin: 5px 1%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
-
     }
 
     .desk__wrapper {
       height: 32%;
       justify-content: center;
-    }
-
-    .play__wrapper {
-      height: 3%;
     }
   }
 </style>

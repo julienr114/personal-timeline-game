@@ -31,7 +31,6 @@ export default {
 
   .event__card {
     border: 8px solid white;
-    margin: 5px 15px;
     box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     display: flex;
