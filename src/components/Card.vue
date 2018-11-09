@@ -1,8 +1,8 @@
 <template lang="pug">
-  .event__card(:style="[ background ]")
+  .event__card(:style="[ background, { width, height } ]")
     span.event__card__date(v-if="enabledDate") {{ event.year }}
     span.event__card__title {{ event.title }}
-    .event__cart__showmore__button(@click="bigMode = true")
+    .event__cart__showmore__button(v-if="enablePreview", @click="bigMode = true")
       .text Afficher en grand
     .big__card__wrapper(v-if="bigMode", @click="bigMode = false")
       .big__card
@@ -21,6 +21,18 @@ export default {
     enabledDate: {
       type: Boolean,
       default: true
+    },
+    enablePreview: {
+      type: Boolean,
+      default: true
+    },
+    width : {
+      type: String,
+      default: 'auto'
+    },
+    height: {
+      type: String,
+      default: 'auto'
     }
   },
 
@@ -50,8 +62,7 @@ export default {
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 140px;
-    height: 220px;
+    background-color: #bebebe;
     background-size: cover;
     background-position: 50% 50%;
     
@@ -125,7 +136,7 @@ export default {
       .big__card {
         height: 80%;
         border: 16px solid white;
-        border-radius: 16px; 
+        border-radius: 16px;
         img {
           height: 100%;
         }

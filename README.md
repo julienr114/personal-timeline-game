@@ -39,7 +39,7 @@ yarn run build
 cd dist
 
 # 3. commit
-git init # Only first time
+git init
 git add -A
 git commit -m 'deploy'
 

@@ -11,13 +11,23 @@
         @add="checkMove"
       )
         .event(v-for="(event, index) in game.board", :key="index") 
-          card(:event="event")
+          card(:event="event",  width="140px", height="220px")
     .desk__wrapper(v-if="game.desk.length > 0")
       .desk
         button(@click="game.toPrevCardOfTheDeck()") Image précedente
         draggable(v-model="topOfTheDesk", :options="{ group: { name: 'desk', pull: 'timeline', put: false } }")
-          card(v-for="(event, index) in topOfTheDesk",  :event="event", :enabled-date="false")
+          card(v-for="(event, index) in topOfTheDesk",  :event="event", :enabled-date="false", width="140px", height="220px")
         button(@click="game.toNextCardOfTheDeck()") Image suivante
+    modal(name="success")
+      .content.success__content(@click="$modal.pop()")
+        h1.title Bien joué !
+        card(v-if="lastCardPlay", :event="lastCardPlay", :enable-preview="false", width="420px", height="660px")
+        span.text *Clique n'importe où pour revenir au jeu
+    modal(name="error")
+      .content.error__content(@click="$modal.pop()")
+        h1.title Il s'emblerait que tu te sois trompé, recommence !
+        card(v-if="lastCardPlay", :event="lastCardPlay", :enabled-date="false", :enable-preview="false", width="420px", height="660px")
+        span.text *Clique n'importe où pour revenir au jeu
 </template>
 
 <script>
@@ -35,7 +45,8 @@ export default {
 
   data () {
     return {
-      game: new Game(events)
+      game: new Game(events, { onSuccess: this.onSuccess, onError: this.onError }),
+      lastCardPlay: null
     }
   },
 
@@ -54,6 +65,16 @@ export default {
     checkMove (evt) {
       this.game.board.splice(evt.newIndex, 1)
       this.game.play(this.game.topOfTheDesk[0], evt.newIndex)
+    },
+
+    onSuccess (event) {
+      this.lastCardPlay = event
+      this.$modal.push('success')
+    },
+
+    onError (event) {
+      this.lastCardPlay = event
+      this.$modal.push('error')
     }
   }
 }
@@ -150,6 +171,57 @@ export default {
       background: linear-gradient(tint(#1245ee, 10%), tint(#0f2188, 10%));
       color: rgba(255, 255, 255, 8);
     }
+  }
+
+  .modal-wrapper {
+    .modal-backdrop {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    .modal-content-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .modal-content {
+        position: relative;
+        left: inherit;
+        right: inherit;
+        margin: inherit;
+        padding: inherit;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+
+        &.error__content, &.success__content {
+          .event__card:after {
+            content: '' ;
+            display: block;
+            position: absolute;
+            top: -13px;
+            bottom: -13px;
+            left: -13px;
+            right: -13px;
+            border-radius: 14px;
+          }
+        }
+
+        &.error__content .event__card:after {
+          border: 5px solid #ff4949;
+        }
+
+        
+        &.success__content .event__card:after {
+          border: 5px solid #33da33;
+        }
+
+        span.text {
+          margin-top: 10px;
+        }
+      }
+  }
   }
 </style>
 
