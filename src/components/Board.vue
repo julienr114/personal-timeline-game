@@ -11,12 +11,12 @@
         @add="checkMove"
       )
         .event(v-for="(event, index) in game.board", :key="index") 
-          card(:event="event",  width="140px", height="220px")
+          card(:event="event", width="140px", height="220px")
     .desk__wrapper(v-if="game.desk.length > 0")
       .desk
         button(@click="game.toPrevCardOfTheDeck()") Image précedente
         draggable(v-model="topOfTheDesk", :options="{ group: { name: 'desk', pull: 'timeline', put: false } }")
-          card(v-for="(event, index) in topOfTheDesk",  :event="event", :enabled-date="false", width="140px", height="220px")
+          card(v-for="(event, index) in topOfTheDesk",  :event="event", :enabled-date="false", width="140px", height="220px", :draggable="true")
         button(@click="game.toNextCardOfTheDeck()") Image suivante
     modal(name="success")
       .content.success__content(@click="$modal.pop()")

@@ -1,5 +1,5 @@
 <template lang="pug">
-  .event__card(:style="[ background, { width, height } ]")
+  .event__card(:style="[ background, { width, height } ]", :class="{ draggable }")
     span.event__card__date(v-if="enabledDate") {{ event.year }}
     span.event__card__title {{ event.title }}
     .event__cart__showmore__button(v-if="enablePreview", @click="bigMode = true")
@@ -33,6 +33,10 @@ export default {
     height: {
       type: String,
       default: 'auto'
+    },
+    draggable: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -65,6 +69,10 @@ export default {
     background-color: #bebebe;
     background-size: cover;
     background-position: 50% 50%;
+
+    &.draggable:hover {
+      cursor: grab;
+    }
     
     .event__card__date, .event__card__title {
       position: absolute;
@@ -137,6 +145,7 @@ export default {
         height: 80%;
         border: 16px solid white;
         border-radius: 16px;
+        background-color: #bebebe;
         img {
           height: 100%;
         }
