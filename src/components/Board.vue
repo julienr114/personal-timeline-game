@@ -21,6 +21,7 @@
       .end__message(v-else)
         h1 🏆 Fin du jeu ! 🏆
         h2 Bravo, tu as reussi à remettre un peu d'ordre dans tes souvenirs
+    call-chantal
     modal(name="success")
       .content.success__content(@click="$modal.pop()")
         h1.title ✅ Bien joué ! 👌
@@ -38,6 +39,7 @@
 import events from '@/events.js'
 import Game from '@/TimelineGame.js'
 import ConfettiCanvas from '@/components/ConffetiCanvas.vue'
+import CallChantal from '@/components/CallChantal.vue'
 import Draggable from 'vuedraggable'
 
 import Card from '@/components/Card.vue'
@@ -45,6 +47,7 @@ import Card from '@/components/Card.vue'
 export default {
   components: {
     Card,
+    CallChantal,
     Draggable,
     ConfettiCanvas
   },

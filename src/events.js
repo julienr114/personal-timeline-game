@@ -9,6 +9,6 @@ export default [
   { title: 'Le Randonneur', year: '1995', pictureUrl: require('./assets/pictures/carte-le-randonneur.jpg') },
   { title: 'Le Papa', year: '2005', pictureUrl: require('./assets/pictures/carte-papa.png') },
   { title: 'Le Papi', year: '2018', pictureUrl: require('./assets/pictures/carte-papy.jpg') },
-  { title: 'Le Saltinbamque', year: '1977', pictureUrl: require('./assets/pictures/carte-saltimbanque.jpg') },
+  { title: 'Le Saltinbanque', year: '1977', pictureUrl: require('./assets/pictures/carte-saltimbanque.jpg') },
   { title: 'Le Sportif', year: '1986', pictureUrl: require('./assets/pictures/carte-sportif.png') }
 ]
