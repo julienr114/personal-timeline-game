@@ -2,7 +2,7 @@
   .board
     .timeline__wrapper
       .timeline__area
-        span(v-if="game.board.length === 0") Déposes ta première carte ici 
+        span(v-if="game.board.length === 0") Déposes ta première carte ici
       //- .timeline
       draggable(
         class="timeline",
@@ -10,7 +10,7 @@
         :options="{ group: { name: 'timeline', pull: false, put: 'desk' }, sort: false, fallbackOnBody: true }",
         @add="checkMove"
       )
-        .event(v-for="(event, index) in game.board", :key="index") 
+        .event(v-for="(event, index) in game.board", :key="index")
           card(:event="event", width="140px", height="220px")
     .desk__wrapper
       .desk(v-if="game.desk.length > 0")
@@ -19,16 +19,16 @@
           card(v-for="(event, index) in topOfTheDesk",  :event="event", :enabled-date="false", width="140px", height="220px", :draggable="true")
         button(@click="game.toNextCardOfTheDeck()") Image suivante
       .end__message(v-else)
-        h1 Fin du jeu !
+        h1 🏆 Fin du jeu ! 🏆
         h2 Bravo, tu as reussi à remettre un peu d'ordre dans tes souvenirs
     modal(name="success")
       .content.success__content(@click="$modal.pop()")
-        h1.title Bien joué !
+        h1.title ✅ Bien joué ! 👌
         card(v-if="lastCardPlay", :event="lastCardPlay", :enable-preview="false", width="420px", height="660px")
         span.text *Clique n'importe où pour revenir au jeu
     modal(name="error")
       .content.error__content(@click="$modal.pop()")
-        h1.title Il s'emblerait que tu te sois trompé, recommence !
+        h1.title ❌ Il semblerait que tu te sois trompé, recommence ! ❌
         card(v-if="lastCardPlay", :event="lastCardPlay", :enabled-date="false", :enable-preview="false", width="420px", height="660px")
         span.text *Clique n'importe où pour revenir au jeu
     confetti-canvas(v-if="game.desk.length === 0")
@@ -135,7 +135,7 @@ export default {
         font-size: 60px;
         color:  rgba(255, 255, 255, .4);
       }
-      
+
       .timeline {
         padding-top: 10px;
         min-height: 60%;
@@ -149,6 +149,19 @@ export default {
           display: flex;
           align-items: center;
           justify-content: center;
+        }
+      
+        .event__card.sortable-chosen:after {
+          content: '';
+          position: absolute;
+          top: -8px;
+          bottom: -8px;
+          left: -8px;
+          right: -8px;
+          opacity: .6;
+          border-radius: 8px;
+          background-color: #0d92ff;
+          z-index: 2;
         }
       }
     }
@@ -188,7 +201,7 @@ export default {
     .modal-backdrop {
       background-color: rgba(0, 0, 0, 0.8);
     }
-    
+
     .modal-content-wrapper {
       display: flex;
       justify-content: center;
@@ -223,7 +236,6 @@ export default {
           border: 5px solid #ff4949;
         }
 
-        
         &.success__content .event__card:after {
           border: 5px solid #33da33;
         }
@@ -234,6 +246,4 @@ export default {
       }
     }
   }
-
 </style>
-

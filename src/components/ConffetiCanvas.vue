@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import "confetti-js"
+import 'confetti-js'
 
 const SETTINGS = {
   target: 'confetti-holder',
@@ -50,6 +50,7 @@ export default {
   },
 
   mounted () {
+    // eslint-disable-next-line no-undef
     this.confetti = new ConfettiGenerator(SETTINGS)
     this.confetti.render()
   }
@@ -62,4 +63,3 @@ export default {
     top: 0;
   }
 </style>
-

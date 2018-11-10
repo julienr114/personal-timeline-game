@@ -26,7 +26,7 @@ export default {
       type: Boolean,
       default: true
     },
-    width : {
+    width: {
       type: String,
       default: 'auto'
     },
@@ -73,7 +73,7 @@ export default {
     &.draggable:hover {
       cursor: grab;
     }
-    
+
     .event__card__date, .event__card__title {
       position: absolute;
       border-radius: 6px;
