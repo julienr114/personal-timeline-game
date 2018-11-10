@@ -12,12 +12,15 @@
       )
         .event(v-for="(event, index) in game.board", :key="index") 
           card(:event="event", width="140px", height="220px")
-    .desk__wrapper(v-if="game.desk.length > 0")
-      .desk
+    .desk__wrapper
+      .desk(v-if="game.desk.length > 0")
         button(@click="game.toPrevCardOfTheDeck()") Image précedente
         draggable(v-model="topOfTheDesk", :options="{ group: { name: 'desk', pull: 'timeline', put: false } }")
           card(v-for="(event, index) in topOfTheDesk",  :event="event", :enabled-date="false", width="140px", height="220px", :draggable="true")
         button(@click="game.toNextCardOfTheDeck()") Image suivante
+      .end__message(v-else)
+        h1 Fin du jeu !
+        h2 Bravo, tu as reussi à remettre un peu d'ordre dans tes souvenirs
     modal(name="success")
       .content.success__content(@click="$modal.pop()")
         h1.title Bien joué !
@@ -28,11 +31,13 @@
         h1.title Il s'emblerait que tu te sois trompé, recommence !
         card(v-if="lastCardPlay", :event="lastCardPlay", :enabled-date="false", :enable-preview="false", width="420px", height="660px")
         span.text *Clique n'importe où pour revenir au jeu
+    confetti-canvas(v-if="game.desk.length === 0")
 </template>
 
 <script>
 import events from '@/events.js'
 import Game from '@/TimelineGame.js'
+import ConfettiCanvas from '@/components/ConffetiCanvas.vue'
 import Draggable from 'vuedraggable'
 
 import Card from '@/components/Card.vue'
@@ -40,7 +45,8 @@ import Card from '@/components/Card.vue'
 export default {
   components: {
     Card,
-    Draggable
+    Draggable,
+    ConfettiCanvas
   },
 
   data () {
@@ -155,6 +161,11 @@ export default {
         margin: 0px 20px;
         width: 100px;
       }
+
+      .end__message {
+        text-align: center;
+        color: white;
+      }
     }
 
     button {
@@ -221,7 +232,8 @@ export default {
           margin-top: 10px;
         }
       }
+    }
   }
-  }
+
 </style>
 
